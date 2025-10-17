@@ -91,6 +91,18 @@
 - `user+tag@example.co.uk`
 - `user-name@sub.example.com`
 
+**提取示例**：
+```java
+private static final String SIMPLE_EMAIL_REGEX = 
+			"^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+public static boolean isValidEmail(String email)
+	{
+		if (email == null)
+			return false;
+		return email.matches(SIMPLE_EMAIL_REGEX);
+	}
+```
+
 #### 📱 手机号验证（中国大陆）
 
 **正则规则**：
@@ -106,6 +118,21 @@
 - 移动：134-139, 147, 150-152, 157-159, 178, 182-184, 187-188
 - 联通：130-132, 145, 155-156, 166, 171, 175-176, 185-186
 - 电信：133, 149, 153, 173, 177, 180-181, 189, 199
+
+**提取示例**：
+```java
+public static String validatePhone(String phone)
+{
+    String regex = "^1[3~9]\\d{9}$";
+    return phone.matches(regex) ? "Valid phone" : "Invalid phone";
+}
+
+public static void main(String[] args) {
+    System.out.println(validatePhone("13800138002"));
+    System.out.println(validatePhone("12345678901"));
+    System.out.println(validatePhone("123456901"));
+}
+```
 
 ### 2. 信息提取
 
@@ -150,3 +177,16 @@ while (matcher.find()) {
 **规则解析**：
 - 用分组()保留前3位和后4位
 - 中间4位替换为\*\*\*\*，实现隐私脱敏
+
+**提取示例**：
+```java
+public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String phone1 = "13800138000";
+		String phone2 = "13900139870";
+		String obfuscated1 = phone1.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1***$2");
+		System.out.println(obfuscated1);
+		String obfuscated2 = phone2.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1***$2");
+		System.out.println(obfuscated2);
+	}
+```
